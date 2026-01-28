@@ -43,8 +43,8 @@ Address			varchar(50) NULL,
 -- in the following check we are testing a pattern (usually referred to as a Regex- regular expression)
 --		and basicly means: "I want a literal [ in the string"; without the backslash SQL treats the
 --		[ as something special
--- NOTE the need for the \ slash
---      the opertor is the ~ symbol in PostgreSql
+-- NOTE the operator is the ~ symbol in PostgreSql
+--      the operator is the word like in MSSQL
 -- the content within the [...] is a character in the string
 -- other items 
 --  ^ means "start of the string", with out pattern could be anywhere in string
@@ -53,7 +53,7 @@ Address			varchar(50) NULL,
 -- in the following the ^ and $ are unnecessary because the pattern has 10 characters which is the exact
 --		max length of the attribute
 Phone			varchar(10) NULL
-	CONSTRAINT CK_MickeyMouseStudent_Phone CHECK (Phone ~ '\[1-9][0-9][0-9][1-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+	CONSTRAINT CK_MickeyMouseStudent_Phone CHECK (Phone ~ '[1-9][0-9][0-9][1-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
 EnrollmentDate	date		NULL
 	CONSTRAINT DF_MickeyMouseStudent_EnrollmentDate Default Current_Date,
 Gender			char(1)		NOT NULL
@@ -65,8 +65,8 @@ CourseID		char(8)			NOT NULL PRIMARY KEY,
 CourseName		varchar(50)		NULL
 	CONSTRAINT UQ_MickeyMouseCourse_CourseName UNIQUE,
 CourseHours		decimal(3,0)	NULL
-	CONSTRAINT CK_MickeyMouseCourse_CourseHours CHECK (CourseHours between 0 AND 90),
---	CONSTRAINT CK_MickeyMouseCourse_CourseHours CHECK (CourseHours >= 0 AND CourseHours <= 90),
+	CONSTRAINT CK_MickeyMouseCourse_CourseHours CHECK (CourseHours between 0 AND 160),
+--	CONSTRAINT CK_MickeyMouseCourse_CourseHours CHECK (CourseHours >= 0 AND CourseHours <= 160),
 
 --NOTE: on some constraint Postgre will not implicitly do conversions of datatype
 --      example: on the cost field, one needs to typecast the argument value as MONEY '...'
@@ -74,6 +74,8 @@ CourseHours		decimal(3,0)	NULL
 --          then the condition argument would not have to be typecast
 CourseCost		money			NULL
 	CONSTRAINT CK_MickeyMouseCourse_CourseCost CHECK (CourseCost >= MONEY '0.00')
+-- CourseCost		decimal(12,2)			NULL
+-- 	CONSTRAINT CK_MickeyMouseCourse_CourseCost CHECK (CourseCost >= 0.00)
 );
 
 --IF you have a compound (composite) PKEY then the
