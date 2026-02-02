@@ -10,14 +10,14 @@ Delete From MickeyMouseStudent;
 Insert Into MickeyMouseStudent
 	(StudentID, FirstName, LastName, Address, Phone, EnrollmentDate, Gender)
 Values
-	(1234567, 'Mickey', 'Mouse', '1 Disneyland Street', '5551212', '18-Dec-1992', 'M'),
-	(1234568, 'Minnie', 'Mouse', '1 Disneyland Street', '5551212', '01-Mar-1986', 'F'),
-	(3114115, 'Daffy', 'Duck', '25 Disneyland Avenue', '5551234', '22-Oct-1967', 'M'),
-	(5242424, 'Uncle', 'Scrooge', '500 Lootville Crescent', '6034444', '12-Jul-1947', 'M'),
-	(8888888, 'Bugs', 'Bunny', '14 Hole Street', '1111111', '28-Feb-1972', 'M'),
-	(7777777, 'Wylie', 'Coyote', 'RR2 Desert Drive', '9382763', '09-Jul-1994', 'M'),
-	(5500055, 'Tinker', 'Bell', 'Neverland', '0000001', '31-May-1978', 'F'),
-	(8800088, 'Peter', 'Pan', 'Neverland', '0000002', '17-Nov-1986', 'M');
+	(1234567, 'Mickey', 'Mouse', '1 Disneyland Street', '7805551212', '18-Dec-1992', 'M'),
+	(1234568, 'Minnie', 'Mouse', '1 Disneyland Street', '7805551212', '01-Mar-1986', 'F'),
+	(3114115, 'Daffy', 'Duck', '25 Disneyland Avenue', '7805551234', '22-Oct-1967', 'M'),
+	(5242424, 'Uncle', 'Scrooge', '500 Lootville Crescent', '7806034444', '12-Jul-1947', 'M'),
+	(8888888, 'Bugs', 'Bunny', '14 Hole Street', '7801111111', '28-Feb-1972', 'M'),
+	(7777777, 'Wylie', 'Coyote', 'RR2 Desert Drive', '7809382763', '09-Jul-1994', 'M'),
+	(5500055, 'Tinker', 'Bell', 'Neverland', '7801000001', '31-May-1978', 'F'),
+	(8800088, 'Peter', 'Pan', 'Neverland', '7801000002', '17-Nov-1986', 'M');
 
 Insert Into MickeyMouseCourse
 	(CourseID, CourseName, CourseHours, CourseCost)
