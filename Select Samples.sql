@@ -215,3 +215,29 @@ FROM MickeyMouseStudent;
 SELECT  StudentID, FirstName || ' ' || LastName  Name, Phone, 
 	LEFT(FirstName,3) || LastName || '@nait.ca' "Email" --, Gender
 FROM MickeyMouseStudent;
+
+-- Cast
+-- if you require to temporarily alter the data type of your attribute value
+
+SELECT CourseName, CAST(CourseCost as Varchar) 
+FROM MickeyMouseCourse;
+
+--OR
+
+SELECT CourseName, CourseCost::Varchar
+FROM MickeyMouseCourse;
+
+--DATE
+--within PostgreSql the system date is obtained using CURRENT_DATE
+--within PostgreSql the system time is obtained using CURRENT_TIME
+--to obtain a part of the date use: DATE_PART('datepartid', field) (note doc incorrect)
+
+--see Basic SELECT word doc for possible date part options
+
+SELECT enrollmentdate, DATE_Part( 'month', enrollmentdate )AS Month,
+		DATE_Part('dow', enrollmentdate ) AS "Day of Week", 
+		DATE_Part('day', enrollmentdate) AS Day
+FROM MickeyMouseStudent;
+
+
+
