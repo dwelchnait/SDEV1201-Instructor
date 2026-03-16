@@ -10,6 +10,10 @@ Delete from Registration -- Delete the records
 Commit Transaction -- Commit the Transaction
 Select OfferingCode, StudentID, Mark, WithdrawYN From Registration -- See data
 
+--after the above demo, you will need to reload the IQSchool records using your script
+
+DROP PROCEDURE IF EXISTS PR_RegisterStudent
+go
 Create Procedure PR_RegisterStudent 
 (@OfferingCode int = null, 
 @StudentID int = null, 
@@ -23,6 +27,10 @@ Begin
 	END
 	ELSE
 	BEGIN
+		-- remember in this course you will validate that pkey exists first for
+		--		any filter condition on your DML Update and delete commands
+		--      and if possible the filter conditon for these commands if it
+		--		does not involve a pkey
 		if not EXISTS (Select OfferingCode
 						FROM Offering
 						WHERE OfferingCode = @OfferingCode)
@@ -47,6 +55,14 @@ Begin
 				END
 				ELSE
 				BEGIN
+					-- starts the explicit transaction in memory
+					-- sql tracks any changes
+					-- there is only one Begin Transaction
+
+					-- A TRANSACTION MUST BE ABLE TO EXECUTE A COMMIT OR ROLLBACK TO BE SUCCESSFUL
+					-- DO NOT LEAVE "HANGING" TRANSACTIONS
+
+					--NOTE: DO NOT confuse the Begin Transaction command with the IF's Begin
 					Begin Transaction
 					Begin Try
 						Insert Into Registration
@@ -60,12 +76,18 @@ Begin
 															Where CourseID = @CourseID)
 						Where StudentID = @StudentID
 
+						-- all DML commands have been execute and the result
+						--		are to be permanently keep on the database
+						--there is only ONE Commit per transaction
 						Commit Transaction
 					End Try
 					Begin Catch
+						-- the rollback transaction erases any and all changes
+						--	to the database made during the explicit transaction
+						-- there is only ONe Rollback executed per transaction
 						Rollback Transaction
-
-						Select @Error_Message = Error_Message()
+						--seems that the statement prior to a Throw needs a semi-colon ;
+						Select @Error_Message = Error_Message();
 						Throw 50000, @ErrorMessage, 1
 					End Catch
 				END
