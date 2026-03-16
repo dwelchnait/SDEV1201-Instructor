@@ -58,7 +58,17 @@ GROUP BY studentid;
 --     contraints: grade A students (avg >= 80)
 --     display concerns: descending average
 
-SELECT studentid, Avg(mark) AS "Student Average"
+--ways to limit decimal positions
+-- Round(attribute, numeric of decimal places)
+-- CAST attribute::NUMERIC(number of digits,number of decimal places)
+-- TRUNC(attribute, numeric of decimal places)
+-- TO_CHAR(attribyte, 'FM999,999.00')
+--      where FM means trim output
+--            , places proper thousand divider
+--            9 display a digit if exists
+--            0 display a digit no matter what
+
+SELECT studentid, Round(Avg(mark),2) AS "Student Average"
 FROM Registration
 GROUP BY studentid
 Having Avg(mark) >= 80

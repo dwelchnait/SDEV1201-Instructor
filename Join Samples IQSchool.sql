@@ -135,3 +135,22 @@ select positiondescription, p.positionid, Count(staffid)
 from staff s RIGHT OUTER JOIN position p
 		on p.positionid = s.positionid
 group by positiondescription, p.positionid;
+
+-- Table Join Summary 
+
+-- Joins enable us to select data that is from different, related tables. 
+-- We use join conditions to identify what the column is that joins each table in the relationship. 
+--      This allows the select statement to return information from one table and its related 
+--      information from another. 
+-- Inner Joins only return parent records that have at least one matching child record. 
+-- Outer Joins return all the parent records as well as any related child records. 
+-- Left and Right Outer Joins perform the same task, and you can use either one. You must use 
+--      the correct one for the order you have the tables in the select statement From clause. 
+-- If you are selecting a column that exists in more than one table that you are selecting 
+--      from you must specify which table to select from; otherwise, the database will return 
+--      an ambiguous column name error. In this course, if you are writing select statements 
+--      with more than one table, you MUST include the table name before each column, even if 
+--      the column name is not duplicated. 
+-- All the other clauses of a select statement can be used with joins. 
+-- A join can be between 2 or more tables.  
+-- You do not need to select a column from each table you have in your join. 

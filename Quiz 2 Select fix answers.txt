@@ -1,0 +1,96 @@
+Quiz 2 Feedback - Finding problems (Questions 9 - 10)
+
+The following query is broken. What is the problem and how can we fix it?
+-- 3 Marks
+SELECT ProductID, Description
+FROM Product
+INNER JOIN Order ON Product.ProductID = Order.OrderID
+WHERE COUNT(OrderID) > 100;
+-- Problems
+	-- Bad Join Condition
+	-- Missing Group By
+	-- COUNT delimiter must be in Having, not Where
+	-- Missing table names in front of columns
+-- Possible Fix
+	SELECT	Product.ProductID, Product.Description
+	FROM	Product
+				INNER JOIN OrderDetails
+					ON Product.ProductID = OrderDetails.ProductID
+	GROUP BY Product.ProductID, Product.Description
+	HAVING COUNT(OrderDetails.OrderID) > 100;
+-- Bad Join Condition, should be Product.ProductID = OrderDetails.ProductID - minus ½
+-- Missing Group By ProductID, Description - minus ½
+-- "COUNT(OrderID) > 100" must be in Having, not Where - minus 2
+-- Missing table names in front of columns - minus ½
+
+
+
+-- The following query tries to list each category and the number of products in that category. What’s wrong and how do we fix it?
+-- 3 Marks
+SELECT CategoryName, COUNT(ProductID)
+FROM Product
+INNER JOIN Category
+ON Product.ProductID = Category.CategoryID
+GROUP BY CategoryName;
+-- Problems
+	-- Missing Column Heading for Count column
+	-- Join condition is incorrect
+	-- Need outer join instead of inner join
+	-- Missing table names in front of columns
+-- Possible Fix
+	SELECT	Category.CategoryName, COUNT(Product.ProductID) "Some column heading"
+	FROM	Product
+				Right Outer Join Category
+					ON Product.CategoryID = Category.CategoryID
+	GROUP BY Category.CategoryName;
+	-- Missing Column Heading for Count - minus ½
+	-- Missing table names in front of columns - minus ½
+	-- Bad Join Condition, should be Product.CategoryID = Category.CategoryID - minus 2
+	-- Need outer join, not inner join - minus ½
+	
+
+-- The following query intends to list all customer first and last names and how many orders they have, but it’s not working properly. What is wrong and how do we fix it?
+-- 3 Marks
+SELECT CustomerNames, COUNT(OrderID)
+FROM Customer
+LEFT OUTER JOIN Order
+ON Order.CustomerID = Customer.CustomerID;
+-- Problems
+	-- CustomerNames is not a valid column
+	-- Missing Column Heading for Count column
+	-- Missing Group By clause
+	-- Missing table names in front of columns
+-- Possible Fix
+	SELECT	Customer.FirstName || Customer.LastName "CustomerNames", COUNT(Order.OrderID)  "Some column heading"
+	FROM	Customer
+				LEFT OUTER JOIN Order
+					ON Order.CustomerID = Customer.CustomerID
+	GROUP BY Customer.FirstName, Customer.LastName;
+	-- CustomerNames is not a valid column; need to add Customer.FirstName and Customer.LastName (as one column or two) - minus 1
+	-- Missing Column Heading for Count - minus ½
+	-- Missing table names in front of columns - minus ½
+	-- Missing Group By clause - minus 1
+
+ 
+-- This query is intended to show all suppliers who have provided at least one product. What is wrong and how do we fix it?
+-- 3 Marks
+SELECT SupplierName
+FROM Supplier
+INNER JOIN Produc
+ON SupplierID = SupplierID
+GROUP BY SupplierName
+HAVING COUNT(ProductID) > 0;
+-- Problems
+	-- Bad table name Produc needs to be Product
+	-- Column name SupplierID is ambiguous in Join condition
+	-- Missing table names in front of columns
+-- Possible Fix
+	SELECT	Supplier.SupplierName
+	FROM	Supplier
+				INNER JOIN Product
+					ON Supplier.SupplierID = Product.SupplierID
+	GROUP BY Supplier.SupplierName
+	HAVING COUNT(Product.ProductID) > 0;
+	-- Column name SupplierID is ambiguous - minus 1
+	-- Bad table name Produc needs to be Product - minus 1
+	-- Missing table names in front of columns - minus 1
